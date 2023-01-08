@@ -1,18 +1,17 @@
 import { Router } from "express";
-import { TaskController } from "../controllers/taskController";
+import { taskController } from "../controllers/taskController";
+import {
+  taskValidator,
+  updateTaskValidator,
+  deleteTaskValidator,
+} from "./validators/taskValidator";
 
 export const taskRouter = Router();
 
-const controller = new TaskController();
+taskRouter.get("/", taskController.getAll);
 
-taskRouter.get("/", async (req, res) => {
-  const allTasks = await controller.getAll();
-  res.json(allTasks);
-});
+taskRouter.post("/", taskValidator, taskController.createTask);
 
-// taskRouter.post(
-//   "/",
-//   async (req: Request, res: Response) => {
-//     res.send("");
-//   }
-// );
+taskRouter.put("/", updateTaskValidator, taskController.updateTask);
+
+taskRouter.delete("/", deleteTaskValidator, taskController.deleteTask);

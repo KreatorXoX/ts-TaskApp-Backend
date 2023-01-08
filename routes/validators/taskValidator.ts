@@ -41,3 +41,29 @@ export const taskValidator = [
       "Status has to be one of the followings : todo - inProgress - completed "
     ),
 ];
+
+export const updateTaskValidator = [
+  body("status")
+    .trim()
+    .isIn([Status.todo, Status.inProgress, Status.completed])
+    .withMessage(
+      "Status has to be one of the followings : todo - inProgress - completed "
+    ),
+  body("id")
+    .not()
+    .isEmpty()
+    .withMessage("Task id is required")
+    .trim()
+    .isString()
+    .withMessage("Id has to be uuid format"),
+];
+
+export const deleteTaskValidator = [
+  body("id")
+    .not()
+    .isEmpty()
+    .withMessage("Task id is required")
+    .trim()
+    .isString()
+    .withMessage("Id has to be uuid format"),
+];
